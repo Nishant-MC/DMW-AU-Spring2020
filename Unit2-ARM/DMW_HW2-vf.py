@@ -148,7 +148,7 @@ def brute_arm(database, support):
     # NOTE: This is a quick hack with VERY slow runtime over large datasets
             A better solution uses each iterated list of length i sets to get new candidates
     """
-    for i in range(2, len(kncandidates)+1):
+    for i in range(2, len(singletons)+1):
         newcombinations = list( combinations( return_candidates( singletons ) ,i ) )
         kncandidates.extend( find_new_candidates(database, newcombinations, support) )
 
