@@ -1,6 +1,7 @@
 """
 # Data Mining & Warehousing, Spring 2020
 # Group Assignment: Gopal S, Mihret MA, Nishant MC
+# Assignment 2 (Lab): ASSOCIATION RULE MINING
 """
 
 
@@ -57,7 +58,7 @@ def print_combination(combo):
     for i in list(combo):
         print(i)
 
-# Quick function to return the item set only from the (item set, frequency) 2-tuple
+# Quick function to return the item set only from a (item set, frequency) 2-tuple
 def return_candidates(candidates):
     return [ item[0] for item in candidates ]
 
@@ -77,7 +78,8 @@ def key_support(a):
 
 
 """
-# Finding new candidates by (1) iterating through a candidate list and then
+# Finding new candidates by:
+# (1) iterating through a candidate list and then
 # (2) checking each potential candidate against a transaction db
 # All viable candidates must be above support threshold S
 """
@@ -170,10 +172,15 @@ def apriori_arm(database, support):
     
     # Keep a copy of just these viable singletons for later iterations
     singletons = deepcopy(kncandidates)
-
-    # Now repeat iteratively using combinations of singletons and found candidates
-    for i in range(2, len(kncandidates)+1):
-        newcombinations = find_new_combinations ( kncandidates, singletons, i )
+    
+    """
+    # Now repeat iteratively using appropriate combinations of singletons and found candidates
+    # The function find_new_combinations() is used for implementation of the a priori algorithm
+    # We use it to iteratively build and prune candidate lists level by level as needed
+    # Max number of possible levels = number of unique items in the viable singleton set
+    """
+    for i in range(2, len(singletons)+1):
+        newcombinations = find_new_combinations( kncandidates, singletons, i )
         kncandidates.extend( find_new_candidates(database, newcombinations, support) )
 
     # Return the result, sorted by: list length, and then by dictionary order of itemlist
@@ -181,13 +188,13 @@ def apriori_arm(database, support):
 
 
 
-# Main function
+# Main function (where everything happens)
 def main():
 
-    # Default behavior
+    # Default behavior if no keyword arguments (kwargs) are supplied...
     if len(sys.argv) == 1:
         
-        print('No keyword args supplied - resorting to default behavior...')
+        print('No keyword arguments supplied - resorting to default behavior...')
     
         # Generating the test case
         transactiondb = generate_testdb()
@@ -195,8 +202,8 @@ def main():
         print_db(transactiondb)
 
         # Generating a random case
-        randomdb = generate_randomdb(10,20,15,1,10)
-        print('\nRandom DB (10-20 transactions, 15 possible items, 1-10 items per transaction):')
+        randomdb = generate_randomdb(10,20,20,1,10)
+        print('\nRandom DB (10-20 transactions, 20 possible items, 1-10 items per transaction):')
         print_db(randomdb)
 
         # Solving the test case (association rule mining)
@@ -221,6 +228,7 @@ def main():
         print('\nRandom problem (brute) solution (S=3):', candidatesets)
         print('Time taken (seconds):', end-start)
 
+
     # If 4 kwargs (# transactions, # possible items, # uniques / transaction, support thresh S) are given 
     elif len(sys.argv) == 5:
 
@@ -238,8 +246,9 @@ def main():
         start = time()
         candidatesets = apriori_arm(randomdb, int(sys.argv[4]) )
         end = time()
-        print('\nTest problem (ARM) solution (S:', sys.argv[4], '):', candidatesets)
+        print('\nTest problem (ARM) solution ( S =', sys.argv[4], '):', candidatesets)
         print('Time taken (seconds):', end-start)
+
 
     # If 5 kwargs (# transactions, # possible items, # uniques / transact LB + UB, supp thresh) are given 
     elif len(sys.argv) == 6:
@@ -261,10 +270,13 @@ def main():
         print('\nTest problem (ARM) solution ( S =', sys.argv[5], '):', candidatesets)
         print('Time taken (seconds):', end-start)
 
+
     # Handling undefined input cases
     else:
         print('ERROR: Unrecognized combination of keyword arguments.')
     
 
+
+# Calling the main function from the global namespace
 if __name__ == "__main__":
     main()
