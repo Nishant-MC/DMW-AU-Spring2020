@@ -88,15 +88,15 @@ def find_new_candidates(database, possiblecandidates, support):
     candidates = []
     
     # Perform a linear pass (search) for each candidate over the full transaction db
-    for item in possiblecandidates:
+    for itemset in possiblecandidates:
         s = 0
         # Check if the candidate itemset is a subset of the current transaction's itemset
         for transaction in database:
-            if set(item).issubset(transaction[1]):
+            if set(itemset).issubset(transaction[1]):
                 s += 1
         # Only add the candidate itemset to your list if it crosses the support threshold
         if s >= support:
-            candidates.append( (''.join( sorted( list( item ) ) ), s) )
+            candidates.append( (''.join( sorted( list( itemset ) ) ), s) )
             
     return candidates
 
