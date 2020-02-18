@@ -30,3 +30,37 @@ python3 DMW-HW2-vf.py 1000 20 1 10 50
 ```
 
 **The code is self-documenting and should explain reasonably well what each function is doing and why. Reference the code comments when needed.**
+
+
+Example full run:
+
+```
+nishantcoding$ python3 DMW-HW2-vf.py 20 10 1 5 3
+Five kwargs specified:
+# transactions, # possibles, # uniques / transaction LB & UB, support threshold (S)...
+
+Random DB ( 20 transactions, 10 possible items, 1 to 5 items per transaction):
+(1, {'D', 'C', 'E', 'A'})
+(2, {'I', 'H', 'C'})
+(3, {'E'})
+(4, {'D', 'C', 'A'})
+(5, {'I', 'D', 'B'})
+(6, {'H', 'A'})
+(7, {'C', 'F', 'I', 'E', 'G'})
+(8, {'A'})
+(9, {'I', 'D', 'J', 'F'})
+(10, {'D', 'C', 'I', 'J', 'H'})
+(11, {'D', 'B'})
+(12, {'A', 'I', 'F', 'E', 'H'})
+(13, {'I', 'A', 'E', 'F'})
+(14, {'C', 'F'})
+(15, {'I', 'C', 'J', 'B'})
+(16, {'I', 'H', 'B', 'E'})
+(17, {'H', 'J', 'B', 'F'})
+(18, {'C', 'A', 'J', 'E', 'B'})
+(19, {'H', 'G', 'F', 'B'})
+(20, {'H', 'F'})
+
+Test problem (ARM) solution ( S = 3 ): [('A', 7), ('B', 7), ('C', 8), ('D', 6), ('E', 7), ('F', 8), ('H', 8), ('I', 9), ('J', 5), ('AC', 3), ('AE', 4), ('BH', 3), ('BI', 3), ('BJ', 3), ('CD', 3), ('CE', 3), ('CI', 4), ('CJ', 3), ('DI', 3), ('EF', 3), ('EI', 4), ('FH', 4), ('FI', 4), ('HI', 4), ('IJ', 3), ('EFI', 3)]
+Time taken (seconds): 0.0018360614776611328
+```
