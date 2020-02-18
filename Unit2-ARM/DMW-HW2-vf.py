@@ -2,6 +2,9 @@
 # Data Mining & Warehousing, Spring 2020
 # Group Assignment: Gopal S, Mihret MA, Nishant MC
 # Assignment 2 (Lab): ASSOCIATION RULE MINING
+
+Github repo link for more info (all labs + writeups):
+https://github.com/Nishant-MC/DMW-AU-Spring2020
 """
 
 
