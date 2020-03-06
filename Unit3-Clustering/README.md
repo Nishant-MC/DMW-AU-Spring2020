@@ -14,8 +14,8 @@ k-means.py
 Example usage(s):
 
 ```
-python3 data-generator.py -- initiates default behavior (see code for more details)
-python3 data-generator.py 0 1000 2 100 2d-data.txt —- exactly 100 2-d pts in (0,1k) range, piped to a file test-data.txt
+python3 data-generator.py —— initiates default behavior (see code for more details)
+python3 data-generator.py 0 1000 2 100 2d-data.txt —— exactly 100 2-d pts in (0,1k) range, piped to a file test-data.txt
 python3 data-generator.py 0 100000 2 1000 2000 2d-data.txt —— somewhere b/w 1k-2k 2-d pts in (0,1m) range, piped to a file 2d-data.txt
 ```
 
@@ -29,8 +29,14 @@ Example usage(s):
 python3 k-means.py 2d-data.txt 5 100 —— Performs k-means clustering on the dataset in 2d-data.txt. Sets number of clusters (k) = 5, execution limit = 100
 ```
 
+![Image of Scatterplot](https://github.com/Nishant-MC/DMW-AU-Spring2020/blob/master/Unit3-Clustering/clustering-viz-2d-5c-1346pts.png)
+
+
+
 Errata:
 
 * RSS (residual sum of squares) threshold testing was not implemented. We have no way to know good RSS values for arbitrary datasets so it seemed pointless to implement support for it.
 
 * Scatterplots become very crowded after 2k+ points are plotted, so the visualization becomes quite useless for very big data sets. That said, the algorithm should efficiently run for arbitrarily large datasets quite well.
+
+* Read the code comments if you are not sure what some piece of code is doing.
