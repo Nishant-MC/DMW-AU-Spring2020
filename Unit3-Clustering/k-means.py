@@ -1,7 +1,18 @@
+"""
+# Data Mining & Warehousing, Spring 2020
+# Group Assignment: Gopal S, Mihret MA, Nishant MC
+# Assignment 3 (Lab): K-MEANS CLUSTERING
+
+Github repo link for more info (all labs + writeups):
+https://github.com/Nishant-MC/DMW-AU-Spring2020
+"""
+
 import sys
 import numpy as np
+import matplotlib.pyplot as plotter
+
 from copy import deepcopy
-from random import choice
+from random import choice, random
 
 """
 # Reads an input file to create an array of n-dimensional coordinates
@@ -94,9 +105,38 @@ def analyze_clusters( kmeansresult ):
         print('Cluster', int(f[0]+1), 'contains', int(f[1]), 'elements.')
 
 
-# Plotter function for mapping out the results of k-means clustering (not yet implemented)
-def plot_clusters( coordDB, kmeansresult ):
-    pass
+# 2-D plotter function for mapping out the results of k-means clustering
+def plot_clusters_2d( coordDB, kmeansresult, k ):
+
+    # Computing a color palette for the plot; fixed for 7 or less colors, random for >7
+    if k <= 7:
+        colors = [ 'b', 'g', 'r', 'c', 'm', 'y', 'k' ][:k]
+    else:
+        colors = [ ( random(), random(), random() ) for i in range(k) ]
+
+    # Computing cluster names (C1, C2, etc.)
+    groups = [ "C"+str(i+1) for i in range(k) ]
+
+    # Creating our plot from the above parameters
+    fig = plotter.figure()
+    axes = fig.add_subplot()
+    for i in range( len( coordDB ) ):
+        axes.scatter( coordDB[i][0], coordDB[i][1], color=colors[ int(kmeansresult[i]) ],
+                      label=groups[ int(kmeansresult[i]) ] )
+
+    # Labelling the plot axes + adding a title
+    axes.set_xlabel('X-coordinate')
+    axes.set_ylabel('Y-coordinate')
+    axes.set_title('2D data visualization for k-means clustering')
+
+    # Showing the plot with a legend (eliminating dupe legend entries). Holding until a keypress
+    handles, labels = plotter.gca().get_legend_handles_labels()
+    by_label = dict( zip( labels, handles ) )
+    fig.legend( by_label.values(), by_label.keys(), loc=1 )
+    fig.show()
+    
+    print('Press any key to close the plot and exit the program.')
+    input()
 
 
 # Main function wrapper
@@ -111,7 +151,10 @@ def main():
         
         kmeansresult = kmeans_clustering( coordDB, int(sys.argv[2]), int(sys.argv[3]) )
         analyze_clusters( kmeansresult )
-        plot_clusters( coordDB, kmeansresult )
+
+        if len(coordDB[0]) == 2:
+            print('Generating 2D visualization...')
+            plot_clusters_2d( coordDB, kmeansresult, int(sys.argv[2]) )
 
 
 if __name__ == "__main__":

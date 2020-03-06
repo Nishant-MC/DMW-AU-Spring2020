@@ -1,3 +1,12 @@
+"""
+# Data Mining & Warehousing, Spring 2020
+# Group Assignment: Gopal S, Mihret MA, Nishant MC
+# Assignment 3 (Lab): K-MEANS CLUSTERING
+
+Github repo link for more info (all labs + writeups):
+https://github.com/Nishant-MC/DMW-AU-Spring2020
+"""
+
 import sys
 from random import uniform, randint
 
